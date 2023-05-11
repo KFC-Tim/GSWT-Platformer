@@ -1,6 +1,6 @@
 
 public class Map
-{   private floorHeight;
+{   //private floorHeight;
 
 
 

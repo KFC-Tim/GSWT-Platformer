@@ -8,6 +8,7 @@ public class Control
 
     private init()
     {   gui = new GUI(this);
+        gui.gameWindow();
         isPlaying = true;
 
     }
@@ -24,7 +25,8 @@ public class Control
 
 
     public static void main(String[] args)
-    {
+    {   Control c = new Control;
+        c.update();
 
     }
 
