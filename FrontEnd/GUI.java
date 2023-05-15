@@ -1,3 +1,4 @@
+import javax.sound.midi.SysexMessage;
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
@@ -22,7 +23,7 @@ public class GUI
 
 
         //gWindow = new JFrame();
-        gWindow.setSize(1200, 600);
+        gWindow.setSize(1800, 1000);
         gWindow.setTitle("GSWT-Platformer");
         gWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gWindow.setResizable(false);
@@ -31,6 +32,7 @@ public class GUI
 
         img = new ImageIcon(sprite);
         player = new JLabel(img);
+        player.setLocation(50, 150);
         p.add(player);
 
         gWindow.setVisible(true);
@@ -43,7 +45,19 @@ public class GUI
     {   sprite = GUI.class.getResource(s);
         img = new ImageIcon(sprite);
         player.setIcon(img);
+        //player.setLocation(150, 650);
         gWindow.getContentPane().add(p);
+    }
+
+    public void setPlayerLocation(int x, int y)
+    {   player.setLocation(x, y);
+        gWindow.getContentPane().repaint();
+        System.out.println(("X: " + player.getX() + " || Y: " + player.getY()));
+    }
+
+    public void changePlayerLocation(int x, int y)
+    {   player.setLocation(player.getX()+x, player.getY()+y);
+
     }
 
     public JFrame getGWindow()

@@ -1,4 +1,6 @@
 import javax.sound.sampled.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +20,13 @@ public class Control
     private Player player;
     private Boolean isPlaying;
 
+    private String playerStatus = "standing";
+
+    private int TIMER_DELAY = 1;
+    private int jumps = 0;
+
+
+
     public Control() throws Exception {   init();
     }
 
@@ -26,32 +35,73 @@ public class Control
         gui.gameWindow();
         isPlaying = true;
 
-        SoundPlayer pl = new SoundPlayer();
+        SoundPlayer pl = new SoundPlayer("C:/Users/timtr/IdeaProjects/GSWT-Platformer/BackEnd/back.wav");
+        pl.play();
+
+        playerStatus = "standing";
+
+        new javax.swing.Timer(TIMER_DELAY, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                update();
+            }
+        }).start();
+
 
         //listFilesUsingFilesList("/");
 
-        playMusic("back.wav");
+        //playMusic("back.wav");
 
     }
 
     private void update()
-    {   //things to do/check per cyclus
-        //input handling
+    {   //TODO Collision-Detection
+        if(playerStatus.equals("jumping"))
+        {   jumps = 0;
+            playerStatus = "jumping-up";
 
-        while(isPlaying)
-        {   //TODO Collision-Detection
+        }
+        if(playerStatus.equals("jumping-up"))
+        {   gui.setPlayerLocation(150, 650 -jumps);
+            jumps+=10;
+        }
+        if(jumps >= 100)
+        {   playerStatus = "jumping-down";
+        }
+        if(playerStatus.equals("jumping-down"))
+        {   gui.setPlayerLocation(150, 650 - jumps);
+            jumps-=10;
+        }
+        if(jumps == 0)
+        {   playerStatus = "standing";
+            jumps = -1;
+        }
+
+        if(playerStatus.equals("standing"))
+        {   gui.setFrame("/Sprites/Male_idle.gif");
+        }
+
+        if(playerStatus.equals("walking"))
+        {  gui.setFrame("/Sprites/Male_walk.gif");
 
         }
     }
 
     public void walkRight()
-    {   gui.setFrame("/Sprites/Male_walk.gif");
-
+    {   System.out.println(playerStatus);
+        if(!(playerStatus.equals("jumping-up") || playerStatus.equals("jumping-down"))) { playerStatus = "walking";};
+        System.out.println(playerStatus);
     }
 
     public void standStill()
-    {   gui.setFrame("/Sprites/Male_idle.gif");
+    {   if(!(playerStatus.equals("jumping-up") || playerStatus.equals("jumping-down"))) { playerStatus = "standing";};
+    }
 
+    public void jump() throws InterruptedException
+    {   gui.setFrame("/Sprites/Male_jump.gif");
+        if(!(playerStatus.equals("jumping-up") || playerStatus.equals("jumping-down") || playerStatus.equals("jumping")))
+        {   playerStatus = "jumping";
+        }
     }
 
 
@@ -72,7 +122,7 @@ public class Control
 
 
     public static void main(String[] args) throws Exception {   Control c = new Control();
-        c.update();
+        //c.update();
 
     }
 

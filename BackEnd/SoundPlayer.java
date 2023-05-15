@@ -1,39 +1,63 @@
-import javax.sound.sampled.*;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.Scanner;
 
-public class SoundPlayer implements LineListener {
+import javax.sound.sampled.*;
 
-    public SoundPlayer() throws UnsupportedAudioFileException, LineUnavailableException, IOException {   super();
-        playSound();
+public class SoundPlayer {
+
+
+        Long currentFrame;
+        Clip clip;
+        String status;
+        AudioInputStream audioInputStream;
+        String filePath = "C:/Users/timtr/IdeaProjects/GSWT-Platformer/BackEnd/back.wav";
+
+    public SoundPlayer(String file) throws UnsupportedAudioFileException, IOException, LineUnavailableException
+    {   filePath = file;
+
+            audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
+
+            clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
-    @Override
-    public void update(LineEvent event) {
-        if (LineEvent.Type.START == event.getType()) {
-            System.out.println("Playback started.");
-        } else if (LineEvent.Type.STOP == event.getType()) {
-            //isPlaybackCompleted = true;
-            System.out.println("Playback completed.");
+
+
+    public void play()
+    {   clip.start();
+        status = "play";
+    }
+
+    public void pause()
+    {   if (!status.equals("paused")) {
+            this.currentFrame = this.clip.getMicrosecondLength();
+            clip.stop();
+            status = "paused";
+        }
+
+    }
+
+    public void resumeAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException
+    {   if (!status.equals("play"))
+        {   clip.stop();
+            clip.close();
+            resetAudioStream();
+            currentFrame = 0L;
+            clip.setMicrosecondPosition(0);
+            this.play();
         }
     }
 
-    public void playSound() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("back.mp3");
-        AudioInputStream audioStream = AudioSystem.getAudioInputStream(inputStream);
+    public void stop() throws UnsupportedAudioFileException, IOException, LineUnavailableException
+    {   currentFrame = 0L;
+        clip.stop();
+        clip.close();
+    }
 
-        AudioFormat audioFormat = audioStream.getFormat();
-        DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
-
-        Clip audioClip = (Clip) AudioSystem.getLine(info);
-        audioClip.addLineListener(this);
-        audioClip.open(audioStream);
-        audioClip.start();
-
-        audioClip.close();
-        audioStream.close();
-
-        audioClip.loop(4);
-
-        audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+    public void resetAudioStream() throws UnsupportedAudioFileException, IOException, LineUnavailableException
+    {   audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
+        clip.open(audioInputStream);
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 }

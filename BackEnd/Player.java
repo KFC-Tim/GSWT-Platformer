@@ -21,7 +21,17 @@ public class Player implements KeyListener
     public void keyPressed(KeyEvent e)
     {   if(e.getKeyCode() == KeyEvent.VK_RIGHT)
         {   ctrl.walkRight();
-            System.out.println("Walk Right");
+            //System.out.println("Walk Right");
+        }
+
+        if(e.getKeyCode() == KeyEvent.VK_SPACE)
+        {
+            try {
+                ctrl.jump();
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
+
         }
 
     }
