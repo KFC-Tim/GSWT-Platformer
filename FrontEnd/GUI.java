@@ -1,6 +1,10 @@
+import javax.imageio.ImageIO;
 import javax.sound.midi.SysexMessage;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URL;
 
 public class GUI
@@ -12,14 +16,38 @@ public class GUI
 
     private JPanel p;
 
+
+
+    //////////////////////////////
+    //////////////////////////////
+
+    private Rectangle2D playerRect;
+
+    private TexturePaint playerTex;
+
+    ///////////////////////////////
+    ///////////////////////////////
+
     public GUI(Control c)
     {   ctrl = c;
         gWindow = new JFrame();
     }
 
-    public void gameWindow()
+    public void gameWindow() throws IOException
     {   sprite = GUI.class.getResource("/Sprites/Male_idle.gif");
         p = new JPanel();
+
+        ////////////////////////////////
+        playerRect = new Rectangle2D.Double();
+        playerRect.setFrame(150, 650, 50, 50);
+        playerTex = new TexturePaint(Sprite.toBuff("./Clothes 1/Character1M_1_idle_0.png"), playerRect);
+
+
+        //gWindow.add(playerRect);
+        //gWindow.add(playerTex);
+        ///////////////////////////////
+
+
 
 
         //gWindow = new JFrame();
@@ -62,6 +90,16 @@ public class GUI
     public JFrame getGWindow()
     {
         return gWindow;
+    }
+
+
+
+    ///////////////////////////////////
+    ///////////////////////////////////
+
+    public void setPlayerSprite(BufferedImage s)
+    {   
+
     }
 
 

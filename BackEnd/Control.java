@@ -1,6 +1,7 @@
 import javax.sound.sampled.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,11 +21,20 @@ public class Control
     private Player player;
     private Boolean isPlaying;
 
+    private BufferedImage playerSprite;
+
     private String playerStatus = "standing";
 
     private int TIMER_DELAY = 1;
     private int jumps = 0;
 
+    private int t = 0;
+
+
+
+    private Sprite standingSprite;
+    private Sprite walkingSprite;
+    private Sprite jumpSprite;
 
 
     public Control() throws Exception {   init();
@@ -38,21 +48,59 @@ public class Control
         SoundPlayer pl = new SoundPlayer("./BackEnd/back.wav");
         pl.play();
 
+        /////////////////////////////
+        ////////////////////////////
+
+        standingSprite = new Sprite(8);
+        for(int i=0; i<8; ++i)
+        {   standingSprite.addSprite(i, Sprite.toBuff("./Clothes 1/Character1M_1_idle_" + i + ".png"));
+        }
+
+        walkingSprite = new Sprite(8);
+        for(int i=0; i<8; ++i)
+        {   walkingSprite.addSprite(i, Sprite.toBuff("./Clothes 1/Character1M_1_walk_" + i + ".png"));
+        }
+
+        jumpSprite = new Sprite(2);
+        for(int i=0; i<2; ++i)
+        {   jumpSprite.addSprite(i, Sprite.toBuff("./Clothes 1/Character1M_1_jump_" + i + ".png"));
+        }
+
+
+        ///////////////////////////
+        ///////////////////////////
+
         playerStatus = "standing";
 
         new javax.swing.Timer(TIMER_DELAY, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                update();
+                tick();
             }
         }).start();
 
+    }
 
-        //listFilesUsingFilesList("/");
 
-        //playMusic("back.wav");
+    private void tick()
+    {   /*TODO          1 | Abfrage Status
+                        2 | Sprite Auswählen
+                        3 | 
+        */
+        ++t;
+
+        //Abfrage Status:
+        
+        switch(playerStatus)
+        {   case "standing":    playerSprite = standingSprite.getSprite(t%8);
+            case "walking":     playerSprite = walkingSprite.getSprite(t&8);
+            case "jumping":     playerSprite = jumpSprite.getSprite(t%2);
+        }
+
+        gui.setPlayerSprite(playerSprite);
 
     }
+
 
     private void update()
     {   //TODO Collision-Detection

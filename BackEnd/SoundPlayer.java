@@ -15,7 +15,6 @@ public class SoundPlayer {
 
     public SoundPlayer(String file) throws UnsupportedAudioFileException, IOException, LineUnavailableException
     {       filePath = file;
-            System.out.println(filePath);
             audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
 
             clip = AudioSystem.getClip();
