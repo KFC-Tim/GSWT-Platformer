@@ -35,7 +35,7 @@ public class Control
         gui.gameWindow();
         isPlaying = true;
 
-        SoundPlayer pl = new SoundPlayer("C:/Users/timtr/IdeaProjects/GSWT-Platformer/BackEnd/back.wav");
+        SoundPlayer pl = new SoundPlayer("./BackEnd/back.wav");
         pl.play();
 
         playerStatus = "standing";
@@ -90,7 +90,6 @@ public class Control
     public void walkRight()
     {   System.out.println(playerStatus);
         if(!(playerStatus.equals("jumping-up") || playerStatus.equals("jumping-down"))) { playerStatus = "walking";};
-        System.out.println(playerStatus);
     }
 
     public void standStill()
@@ -105,20 +104,6 @@ public class Control
     }
 
 
-    private void playMusic(String s) throws Exception
-    {
-
-    }
-
-    public Set<String> listFilesUsingFilesList(String dir) throws IOException {
-        try (Stream<Path> stream = Files.list(Paths.get(dir))) {
-            return stream
-                    .filter(file -> !Files.isDirectory(file))
-                    .map(Path::getFileName)
-                    .map(Path::toString)
-                    .collect(Collectors.toSet());
-        }
-    }
 
 
     public static void main(String[] args) throws Exception {   Control c = new Control();
