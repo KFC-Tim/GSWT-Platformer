@@ -11,11 +11,11 @@ public class SoundPlayer {
         Clip clip;
         String status;
         AudioInputStream audioInputStream;
-        String filePath = "C:/Users/timtr/IdeaProjects/GSWT-Platformer/BackEnd/back.wav";
+        String filePath = "/back.wav";
 
     public SoundPlayer(String file) throws UnsupportedAudioFileException, IOException, LineUnavailableException
-    {   filePath = file;
-
+    {       filePath = file;
+            System.out.println(filePath);
             audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
 
             clip = AudioSystem.getClip();

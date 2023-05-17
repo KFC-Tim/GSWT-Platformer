@@ -52,7 +52,6 @@ public class GUI
     public void setPlayerLocation(int x, int y)
     {   player.setLocation(x, y);
         gWindow.getContentPane().repaint();
-        System.out.println(("X: " + player.getX() + " || Y: " + player.getY()));
     }
 
     public void changePlayerLocation(int x, int y)
