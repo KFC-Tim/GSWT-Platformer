@@ -18,7 +18,7 @@ import javax.swing.JLayer;
 
 public class Control
 {   private GUI gui;
-    private Player player;
+    private KeyLis keylistener;
     private Boolean isPlaying;
 
     private BufferedImage playerSprite;
@@ -41,7 +41,7 @@ public class Control
     }
 
     private void init() throws Exception {   gui = new GUI(this);
-        player = new Player(this, gui.getGWindow());
+        keylistener = new KeyLis(this);
         gui.gameWindow();
         isPlaying = true;
 
@@ -93,47 +93,17 @@ public class Control
         
         switch(playerStatus)
         {   case "standing":    playerSprite = standingSprite.getSprite(t%8);
-            case "walking":     playerSprite = walkingSprite.getSprite(t&8);
+            case "walking":     playerSprite = walkingSprite.getSprite(t%8);
             case "jumping":     playerSprite = jumpSprite.getSprite(t%2);
         }
 
         gui.setPlayerSprite(playerSprite);
+        gui.reload();
+
+        System.out.println(t);
 
     }
 
-
-    private void update()
-    {   //TODO Collision-Detection
-        if(playerStatus.equals("jumping"))
-        {   jumps = 0;
-            playerStatus = "jumping-up";
-
-        }
-        if(playerStatus.equals("jumping-up"))
-        {   gui.setPlayerLocation(150, 650 -jumps);
-            jumps+=10;
-        }
-        if(jumps >= 100)
-        {   playerStatus = "jumping-down";
-        }
-        if(playerStatus.equals("jumping-down"))
-        {   gui.setPlayerLocation(150, 650 - jumps);
-            jumps-=10;
-        }
-        if(jumps == 0)
-        {   playerStatus = "standing";
-            jumps = -1;
-        }
-
-        if(playerStatus.equals("standing"))
-        {   gui.setFrame("/Sprites/Male_idle.gif");
-        }
-
-        if(playerStatus.equals("walking"))
-        {  gui.setFrame("/Sprites/Male_walk.gif");
-
-        }
-    }
 
     public void walkRight()
     {   System.out.println(playerStatus);
@@ -145,7 +115,7 @@ public class Control
     }
 
     public void jump() throws InterruptedException
-    {   gui.setFrame("/Sprites/Male_jump.gif");
+    {   //gui.setFrame("/Sprites/Male_jump.gif");
         if(!(playerStatus.equals("jumping-up") || playerStatus.equals("jumping-down") || playerStatus.equals("jumping")))
         {   playerStatus = "jumping";
         }

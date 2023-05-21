@@ -21,7 +21,7 @@ public class GUI
     //////////////////////////////
     //////////////////////////////
 
-    private Rectangle2D playerRect;
+    private Rectangle2D playerRect = new Rectangle2D.Double(100, 100, 10, 10);
 
     private TexturePaint playerTex;
 
@@ -38,8 +38,8 @@ public class GUI
         p = new JPanel();
 
         ////////////////////////////////
-        playerRect = new Rectangle2D.Double();
-        playerRect.setFrame(150, 650, 50, 50);
+        //playerRect = new Rectangle2D.Double();
+        //playerRect.setFrame(150, 650, 50, 50);
         playerTex = new TexturePaint(Sprite.toBuff("./Clothes 1/Character1M_1_idle_0.png"), playerRect);
 
 
@@ -58,38 +58,37 @@ public class GUI
         //gWindow.setLocation(null);
         gWindow.add(p);
 
-        img = new ImageIcon(sprite);
-        player = new JLabel(img);
-        player.setLocation(50, 150);
-        p.add(player);
+        //img = new ImageIcon(sprite);
+        //player = new JLabel(img);
+        //player.setLocation(50, 150);
+        //p.add(player);
 
         gWindow.setVisible(true);
-        setFrame("/Sprites/Male_talk.gif");
 
     }
 
 
-    public void setFrame(String s)
-    {   sprite = GUI.class.getResource(s);
-        img = new ImageIcon(sprite);
-        player.setIcon(img);
-        //player.setLocation(150, 650);
-        gWindow.getContentPane().add(p);
-    }
-
-    public void setPlayerLocation(int x, int y)
-    {   player.setLocation(x, y);
-        gWindow.getContentPane().repaint();
-    }
-
-    public void changePlayerLocation(int x, int y)
-    {   player.setLocation(player.getX()+x, player.getY()+y);
+    public void paintComponent(Graphics g)
+    {   Graphics2D g2 = (Graphics2D) g;
+        g2.setPaint(playerTex);
+        g2.draw(playerRect);
+        //g2.fillRect(100, 100, 50, 50);
 
     }
+
+
 
     public JFrame getGWindow()
     {
         return gWindow;
+    }
+
+    public void reload()
+    {   paintComponent(gWindow.getGraphics());
+        gWindow.getContentPane().repaint();
+        gWindow.repaint();
+        
+        
     }
 
 
