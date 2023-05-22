@@ -42,7 +42,6 @@ public class Rect extends JPanel {
         g2.drawRect(x, y, w, h);
 
         g2.setPaint(texture);
-        g2.setPaintMode().
         g2.fill(r2);
     }
 }

@@ -24,6 +24,7 @@ public class Control
     private KeyLis keylistener;
     private Boolean isPlaying;
     private Player player;
+    private Map tileMap;
 
     private BufferedImage playerSprite;
 
@@ -61,6 +62,10 @@ public class Control
 
         Player pla = gui.getPlayer();
         player = pla;
+
+        tileMap = new Map(16, 28);
+        tileMap.loadMap();
+        gui.addTileMap(tileMap);
 
         /////////////////////////////
         ////////////////////////////
@@ -154,6 +159,8 @@ public class Control
         playerStatus = "jumping";
         
     }
+
+
 
 
 
