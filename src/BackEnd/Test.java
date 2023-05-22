@@ -4,8 +4,10 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 
+import javax.imageio.IIOException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 
 public class Test
 {   private static JFrame gui;
@@ -18,16 +20,14 @@ public class Test
 
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        r = new Rect(10, 10, 50, 56);
         try {
-            p = new Player(100, 100, 100, 100, Sprite.toBuff("./Clothes 1/Character1M_1_idle_0.png"));
+            r = new Rect(0, 0, 1000, 1000, Sprite.toBuff("./City/Assets_City.png"));
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         gui.add(r);
-        gui.add(p);
         gui.setTitle("Test");
 
         gui.setVisible(true);

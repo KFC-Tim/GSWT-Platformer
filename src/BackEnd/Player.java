@@ -15,6 +15,7 @@ import java.awt.image.BufferedImage;
 
 public class Player extends JPanel
 {   private BufferedImage b;
+    private HitBox playerHitbox;
 
     private int x, y, w, h;
 
@@ -25,7 +26,6 @@ public class Player extends JPanel
     {   super();
 
         b = start;
-        System.out.println(b.getWidth() + " | " + b.getHeight());
         this.setPlayerSprite(start);
 
         this.x = x;
@@ -33,8 +33,12 @@ public class Player extends JPanel
         this.w = w;
         this.h = h;
 
+        
+
         r = new Rectangle2D.Float();
         r.setFrame(x, y, w, h);
+        
+        playerHitbox = new HitBox((int) (x+w/2.8), (int) (y+h/3.5), (int) (w/3.5), (int) (h/2.1));
 
         texture = new TexturePaint(start, r);
 
@@ -45,28 +49,38 @@ public class Player extends JPanel
     
         Graphics2D g2 = (Graphics2D) g;
         texture = new TexturePaint(b, r);
+        Rectangle2D.Double r2 = new Rectangle2D.Double();
+        r2.setFrame(playerHitbox.getX(), playerHitbox.getY(), playerHitbox.getWidth(), playerHitbox.getHeight());
+        r.setFrame(x, y, w, h);
+
 
         g2.setPaint(texture);
-        //g2.drawImage(b, null, x, y);
-        Image i = (Image) b;
-        //g2.drawImage(i, x, y, w, h, getFocusCycleRootAncestor());
 
         g2.fill(r);
         g2.setColor(new Color(255, 0, 0));
-        g2.draw(r);
+        g2.draw(r2);
         
     }
 
     public void setPlayerSprite(BufferedImage b)
-    {   int bW = b.getWidth();
-        int bH = b.getHeight();
-        BufferedImage buffImg = new BufferedImage(bW, bH, BufferedImage.TYPE_INT_ARGB);
-        AffineTransform at = new AffineTransform();
-        at.scale(1.5, 1.5);
-        AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BICUBIC);
-        buffImg = scaleOp.filter(b, buffImg);
-        this.b = buffImg;
+    {   this.b = b;
     }
 
+    public void setX(int x)
+    {   this.x = x;
+        
+        playerHitbox.setX((int) (x+w/2.8));
+    }
+
+    public void setY(int y)
+    {   this.y = y;
+        
+        playerHitbox.setY((int) (y + h/3.5));
+    }
+
+    public int getY0()
+    {   return y;
+
+    }
 
 }

@@ -1,3 +1,5 @@
+
+
 import javax.sound.sampled.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,10 +18,12 @@ import java.util.stream.Stream;
 import javax.swing.JLayer;
 
 
+
 public class Control
 {   private GUI gui;
     private KeyLis keylistener;
     private Boolean isPlaying;
+    private Player player;
 
     private BufferedImage playerSprite;
 
@@ -29,6 +33,11 @@ public class Control
     private int jumps = 0;
 
     private int t = 0;
+    private int spriteUpdate = 0;
+
+    private int t0;
+    private int y0;
+    private Boolean isJumping;
 
 
 
@@ -40,30 +49,35 @@ public class Control
     public Control() throws Exception {   init();
     }
 
-    private void init() throws Exception {   gui = new GUI(this);
+    private void init() throws Exception {   
+        gui = new GUI(this);
         keylistener = new KeyLis(this);
+        gui.getGWindow().addKeyListener(keylistener);
         gui.gameWindow();
         isPlaying = true;
 
-        SoundPlayer pl = new SoundPlayer("./BackEnd/back.wav");
+        SoundPlayer pl = new SoundPlayer("./out/production/GSWT-Platformer/back.wav");
         pl.play();
+
+        Player pla = gui.getPlayer();
+        player = pla;
 
         /////////////////////////////
         ////////////////////////////
 
         standingSprite = new Sprite(8);
         for(int i=0; i<8; ++i)
-        {   standingSprite.addSprite(i, Sprite.toBuff("./Clothes 1/Character1M_1_idle_" + i + ".png"));
+        {   standingSprite.addSprite(i, Sprite.toBuff("./out/production/GSWT-Platformer/Character1M_1_idle_" + i + ".png"));
         }
 
         walkingSprite = new Sprite(8);
         for(int i=0; i<8; ++i)
-        {   walkingSprite.addSprite(i, Sprite.toBuff("./Clothes 1/Character1M_1_walk_" + i + ".png"));
+        {   walkingSprite.addSprite(i, Sprite.toBuff("./out/production/GSWT-Platformer/Character1M_1_walk_" + i + ".png"));
         }
 
         jumpSprite = new Sprite(2);
         for(int i=0; i<2; ++i)
-        {   jumpSprite.addSprite(i, Sprite.toBuff("./Clothes 1/Character1M_1_jump_" + i + ".png"));
+        {   jumpSprite.addSprite(i, Sprite.toBuff("./out/production/GSWT-Platformer/Character1M_1_jump_" + i + ".png"));
         }
 
 
@@ -71,6 +85,7 @@ public class Control
         ///////////////////////////
 
         playerStatus = "standing";
+        isJumping = false;
 
         new javax.swing.Timer(TIMER_DELAY, new ActionListener() {
             @Override
@@ -83,42 +98,61 @@ public class Control
 
 
     private void tick()
-    {   /*TODO          1 | Abfrage Status
-                        2 | Sprite Auswählen
-                        3 | 
-        */
-        ++t;
+    {    ++t;
+        if(t%4 == 0)
+        {   ++spriteUpdate;
+            gui.reload();
+        }
 
         //Abfrage Status:
-        
-        switch(playerStatus)
-        {   case "standing":    playerSprite = standingSprite.getSprite(t%8);
-            case "walking":     playerSprite = walkingSprite.getSprite(t%8);
-            case "jumping":     playerSprite = jumpSprite.getSprite(t%2);
+        if(!isJumping)
+        {   switch(playerStatus)
+            {   case "standing":    playerSprite = standingSprite.getSprite((spriteUpdate/2)%8);
+                                    break;
+                case "walking":     playerSprite = walkingSprite.getSprite((spriteUpdate/2)%8);
+                                    break;
+                case "jumping":     playerSprite = jumpSprite.getSprite((spriteUpdate/2)%2);
+                                    t0 = spriteUpdate;
+                                    y0 = player.getY0();
+                                    isJumping = true;
+                                    jumping();
+            }
         }
+        else
+        {   jumping();
+
+        }
+        
 
         gui.setPlayerSprite(playerSprite);
         gui.reload();
 
-        System.out.println(t);
-
     }
+
+    private void jumping()
+    {   int x = spriteUpdate - t0;
+        
+        player.setY(y0 + (int) (4*(x*(x-7))));
+
+        if(x>=7)
+        {   isJumping = false;
+
+        }
+    } 
 
 
     public void walkRight()
-    {   System.out.println(playerStatus);
-        if(!(playerStatus.equals("jumping-up") || playerStatus.equals("jumping-down"))) { playerStatus = "walking";};
+    {  playerStatus = "walking";
     }
 
     public void standStill()
-    {   if(!(playerStatus.equals("jumping-up") || playerStatus.equals("jumping-down"))) { playerStatus = "standing";};
+    {   playerStatus = "standing";
     }
 
     public void jump() throws InterruptedException
     {   //gui.setFrame("/Sprites/Male_jump.gif");
-        if(!(playerStatus.equals("jumping-up") || playerStatus.equals("jumping-down") || playerStatus.equals("jumping")))
-        {   playerStatus = "jumping";
-        }
+        playerStatus = "jumping";
+        
     }
 
 

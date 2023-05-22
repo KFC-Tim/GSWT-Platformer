@@ -1,3 +1,5 @@
+
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +26,5 @@ public class Sprite {
     public static BufferedImage toBuff(String filename) throws IOException
     {   BufferedImage i = ImageIO.read(new File(filename));
         return i;
-
     }
 }

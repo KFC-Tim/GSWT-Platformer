@@ -7,7 +7,6 @@ public class KeyLis implements KeyListener
     
     public KeyLis(Control ctrl)
     {   this.ctrl = ctrl;
-
     }   
 
     @Override
@@ -18,19 +17,15 @@ public class KeyLis implements KeyListener
     public void keyPressed(KeyEvent e)
     {   if(e.getKeyCode() == KeyEvent.VK_RIGHT)
         {   ctrl.walkRight();
-            //System.out.println("Walk Right");
         }
 
         if(e.getKeyCode() == KeyEvent.VK_SPACE)
-        {
-            try {
+        {   try {
                 ctrl.jump();
             } catch (InterruptedException ex) {
                 throw new RuntimeException(ex);
             }
-
         }
-
     }
 
     @Override

@@ -1,4 +1,5 @@
 import java.awt.Component;
+import java.awt.geom.Rectangle2D.Float;
 
 public class HitBox {
     private int x, y, w, h;
@@ -12,8 +13,8 @@ public class HitBox {
 
     }
 
-    public HitBox(Component c, int w, int h)
-    {   comp = c;
+    public HitBox(Component r, int w, int h)
+    {   comp = r;
         this.w = w;
         this.h = h;
     }
@@ -41,6 +42,15 @@ public class HitBox {
 
     public int getHeight()
     {   return h;
+    }
+
+
+    public void setX(int x)
+    {   this.x = x;
+    }
+
+    public void setY(int y)
+    {   this.y = y;
 
     }
 

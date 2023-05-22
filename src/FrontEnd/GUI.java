@@ -1,3 +1,5 @@
+
+
 import javax.imageio.ImageIO;
 import javax.sound.midi.SysexMessage;
 import javax.swing.*;
@@ -12,7 +14,9 @@ public class GUI
     private JFrame gWindow;
     private URL sprite;
     private ImageIcon img;
-    private JLabel player;
+    private Player player;
+    private Rect r;
+
 
     private JPanel p;
 
@@ -31,32 +35,30 @@ public class GUI
     public GUI(Control c)
     {   ctrl = c;
         gWindow = new JFrame();
+        try {
+            player = new Player(350, 650, 150, 150, Sprite.toBuff("./out/production/GSWT-Platformer/Character1M_1_idle_0.png"));
+            r = new Rect(0, 0, 100, 100, Sprite.toBuff("./City/Assets_City.png"));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        
     }
 
     public void gameWindow() throws IOException
     {   sprite = GUI.class.getResource("/Sprites/Male_idle.gif");
-        p = new JPanel();
-
-        ////////////////////////////////
-        //playerRect = new Rectangle2D.Double();
-        //playerRect.setFrame(150, 650, 50, 50);
-        playerTex = new TexturePaint(Sprite.toBuff("./Clothes 1/Character1M_1_idle_0.png"), playerRect);
-
-
-        //gWindow.add(playerRect);
-        //gWindow.add(playerTex);
-        ///////////////////////////////
-
-
-
-
+        
+        
         //gWindow = new JFrame();
         gWindow.setSize(1800, 1000);
         gWindow.setTitle("GSWT-Platformer");
         gWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gWindow.setResizable(false);
         //gWindow.setLocation(null);
-        gWindow.add(p);
+        
+        gWindow.add(r);
+        gWindow.add(player);
 
         //img = new ImageIcon(sprite);
         //player = new JLabel(img);
@@ -68,23 +70,15 @@ public class GUI
     }
 
 
-    public void paintComponent(Graphics g)
-    {   Graphics2D g2 = (Graphics2D) g;
-        g2.setPaint(playerTex);
-        g2.draw(playerRect);
-        //g2.fillRect(100, 100, 50, 50);
-
-    }
-
 
 
     public JFrame getGWindow()
-    {
-        return gWindow;
+    {   return gWindow;
     }
 
     public void reload()
-    {   paintComponent(gWindow.getGraphics());
+    {   r.repaint(2);
+        player.repaint(1);
         gWindow.getContentPane().repaint();
         gWindow.repaint();
         
@@ -97,7 +91,12 @@ public class GUI
     ///////////////////////////////////
 
     public void setPlayerSprite(BufferedImage s)
-    {   
+    {   player.setPlayerSprite(s);
+        gWindow.repaint();
+    }
+
+    public Player getPlayer()
+    {   return player;
 
     }
 
