@@ -22,12 +22,14 @@ public class Rect extends JPanel {
         this.h = h;
         img = b;
 
+        setBounds(x,y,w,h);
+
         r2 = new Rectangle2D.Float();
         r2.setFrame(x, y, w, h);
 
         texture = new TexturePaint(img, r2);
 
-        System.out.println("Rect created");
+        System.out.println(" Rect created");
     }
     
     
@@ -37,12 +39,10 @@ public class Rect extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         
         g2.setColor(new Color(255, 0, 0));
-        g2.draw(r2);
+        g2.drawRect(x, y, w, h);
 
         g2.setPaint(texture);
+        g2.setPaintMode().
         g2.fill(r2);
-
-        System.out.println("Drawing....");
-        
     }
 }
