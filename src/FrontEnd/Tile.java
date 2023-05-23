@@ -21,7 +21,7 @@ public class Tile
         this.y = y;
 
         r2 = new Rectangle2D.Float();
-        r2.setFrame(x*16, y*16, 16, 16);
+        r2.setFrame(x, y, 16, 16);
         
         texture = new TexturePaint(buffImg, r2);
     }
