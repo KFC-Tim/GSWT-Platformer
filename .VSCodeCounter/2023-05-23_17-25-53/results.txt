@@ -1,0 +1,38 @@
+Date : 2023-05-23 17:25:53
+Directory : i:\Users\timtr\Documents\GitHub\GSWT-Platformer\src
+Total : 12 files,  595 codes, 23 comments, 249 blanks, all 867 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Java     |         12 |        595 |         23 |        249 |        867 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                         | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                            |         12 |        595 |         23 |        249 |        867 |
+| BackEnd                                                                      |          9 |        472 |          9 |        191 |        672 |
+| FrontEnd                                                                     |          3 |        123 |         14 |         58 |        195 |
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                     | language | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| i:\Users\timtr\Documents\GitHub\GSWT-Platformer\src\BackEnd\Control.java     | Java     |        114 |          7 |         53 |        174 |
+| i:\Users\timtr\Documents\GitHub\GSWT-Platformer\src\BackEnd\HitBox.java      | Java     |         54 |          0 |         19 |         73 |
+| i:\Users\timtr\Documents\GitHub\GSWT-Platformer\src\BackEnd\KeyLis.java      | Java     |         28 |          0 |          8 |         36 |
+| i:\Users\timtr\Documents\GitHub\GSWT-Platformer\src\BackEnd\Map.java         | Java     |         90 |          0 |         26 |        116 |
+| i:\Users\timtr\Documents\GitHub\GSWT-Platformer\src\BackEnd\Player.java      | Java     |         59 |          0 |         31 |         90 |
+| i:\Users\timtr\Documents\GitHub\GSWT-Platformer\src\BackEnd\Rect.java        | Java     |         35 |          0 |         13 |         48 |
+| i:\Users\timtr\Documents\GitHub\GSWT-Platformer\src\BackEnd\SoundPlayer.java | Java     |         49 |          0 |         14 |         63 |
+| i:\Users\timtr\Documents\GitHub\GSWT-Platformer\src\BackEnd\Test.java        | Java     |         40 |          2 |         25 |         67 |
+| i:\Users\timtr\Documents\GitHub\GSWT-Platformer\src\BackEnd\Texture.java     | Java     |          3 |          0 |          2 |          5 |
+| i:\Users\timtr\Documents\GitHub\GSWT-Platformer\src\FrontEnd\GUI.java        | Java     |         62 |         14 |         36 |        112 |
+| i:\Users\timtr\Documents\GitHub\GSWT-Platformer\src\FrontEnd\Sprite.java     | Java     |         21 |          0 |         10 |         31 |
+| i:\Users\timtr\Documents\GitHub\GSWT-Platformer\src\FrontEnd\Tile.java       | Java     |         40 |          0 |         12 |         52 |
+| Total                                                                        |          |        595 |         23 |        249 |        867 |
++------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

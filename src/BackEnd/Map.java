@@ -68,12 +68,12 @@ public class Map extends JPanel
         }
 
 
-        tileMap[0][0] = new Tile(5, 21, tiles[0], true);
-        tileMap[1][0] = new Tile(6, 21, tiles[1], true);
-        tileMap[2][0] = new Tile(7, 21, tiles[2], true);
-        tileMap[3][0] = new Tile(8, 21, tiles[3], true);
-        tileMap[4][0] = new Tile(9, 21, tiles[4], true);
-        tileMap[5][0] = new Tile(10, 21, tiles[5], true);
+        tileMap[0][0] = new Tile(0, 21, tiles[0], true);
+        tileMap[1][0] = new Tile(1, 21, tiles[1], true);
+        tileMap[2][0] = new Tile(2, 21, tiles[2], true);
+        tileMap[3][0] = new Tile(3, 21, tiles[3], true);
+        tileMap[4][0] = new Tile(4, 21, tiles[4], true);
+        tileMap[5][0] = new Tile(5, 21, tiles[5], true);
     }
 
 
@@ -110,7 +110,5 @@ public class Map extends JPanel
                 }
             }
         }
-
-        System.out.println("Paint...");
     }
 }

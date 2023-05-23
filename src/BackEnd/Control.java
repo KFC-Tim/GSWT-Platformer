@@ -1,6 +1,8 @@
 
 
 import javax.sound.sampled.*;
+
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -39,6 +41,8 @@ public class Control
     private int t0;
     private int y0;
     private Boolean isJumping;
+    private Boolean isFalling;
+    private int fall;
 
 
 
@@ -67,6 +71,7 @@ public class Control
         tileMap = new Map(16, 28, gui.getGWindow().getSize());
         tileMap.loadMap();
         gui.addTileMap(tileMap);
+        showHitBox();
 
         /////////////////////////////
         ////////////////////////////
@@ -92,6 +97,7 @@ public class Control
 
         playerStatus = "standing";
         isJumping = false;
+        isFalling = false;
 
         new javax.swing.Timer(TIMER_DELAY, new ActionListener() {
             @Override
@@ -111,11 +117,13 @@ public class Control
         }
 
         //Abfrage Status:
-        if(!isJumping)
+        if(!isJumping && !isFalling)
         {   switch(playerStatus)
             {   case "standing":    playerSprite = standingSprite.getSprite((spriteUpdate/2)%8);
+                                    
                                     break;
                 case "walking":     playerSprite = walkingSprite.getSprite((spriteUpdate/2)%8);
+                                    player.setX(player.getX0() + 1);
                                     break;
                 case "jumping":     playerSprite = jumpSprite.getSprite((spriteUpdate/2)%2);
                                     t0 = spriteUpdate;
@@ -123,15 +131,26 @@ public class Control
                                     isJumping = true;
                                     jumping();
             }
-        }
-        else
-        {   jumping();
 
+            fall = HitBox.fallsTo(player);
+            if(player.getY0()!=fall)
+            {   playerStatus = "falling";
+                isFalling = true;         
+            }
+        }
+        else if(isJumping)
+        {   jumping();
+        }
+        else if(isFalling)
+        {   fallTo(fall);
         }
         
 
         gui.setPlayerSprite(playerSprite);
         gui.reload();
+
+        
+
 
     }
 
@@ -161,9 +180,30 @@ public class Control
         
     }
 
+    public void fallTo(int f)
+    {   int posY = player.getY0();
+        int diffY = f - posY;
+
+        if(diffY>15)
+        {   player.setY(posY+15);
+        }
+        else
+        {   player.setY(fall);
+            isFalling = false;
+        }
+    }
 
 
+    private void showHitBox()
+    {   HitBox[] h = HitBox.getHitboxes1D();
+        Color c = new Color(255, 0, 0);
 
+        for(int i=0; i<h.length; ++i)
+        {   
+            if(h[i]!=null){gui.showJPanel(h[i].showHitBox(), c);}
+        }
+
+    }
 
 
     public static void main(String[] args) throws Exception {   Control c = new Control();

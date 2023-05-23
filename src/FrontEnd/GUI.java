@@ -38,10 +38,9 @@ public class GUI
     {   ctrl = c;
         gWindow = new JFrame();
        try {
-            player = new Player(350, 650, 150, 150, Sprite.toBuff("./out/production/GSWT-Platformer/Character1M_1_idle_0.png"));
-            //r = new Rect(10, 10, 300,200, Sprite.toBuff("./Starter Tiles Platformer/DarkCastleTiles/DarkCastle_1_16x16.png"));
+            player = new Player(0, 0, 150, 150, Sprite.toBuff("./out/production/GSWT-Platformer/Character1M_1_idle_0.png"));
+            //player.setLocation(0, 0);
         } catch (IOException e) {
-             //TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -52,14 +51,12 @@ public class GUI
     {   sprite = GUI.class.getResource("/Sprites/Male_idle.gif");
         
         
-        //gWindow = new JFrame();
         gWindow.setSize(1800, 1000);
         gWindow.setTitle("GSWT-Platformer");
         gWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gWindow.setResizable(false);
         //gWindow.setLocation(null);
         
-        //gWindow.add(r);
         gWindow.add(player);
 
 
@@ -76,15 +73,12 @@ public class GUI
     }
 
     public void reload()
-    {   
-        //tileMap.add(player);
-        gWindow.remove(player);
+    {   gWindow.remove(player);
         tileMap.repaint();
         gWindow.add(player);
         
         player.repaint();
         
-        //r.repaint();
     
         gWindow.getContentPane().repaint();
         gWindow.repaint();
@@ -106,7 +100,15 @@ public class GUI
     
     public void addTileMap(Map tileMap)
     {   this.tileMap = tileMap;
+        tileMap.setLocation(0, 0);
         gWindow.add(tileMap);
+    }
+
+    public void showJPanel(JPanel j, Color c)
+    {   j.setBackground(c);
+        gWindow.add(j);
+        reload();
+
     }
 
 }

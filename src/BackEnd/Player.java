@@ -24,6 +24,7 @@ public class Player extends JPanel
     
     public Player(int x, int y, int w, int h, BufferedImage start)
     {   super();
+        //super.setLocation(x, y);
 
         b = start;
         this.setPlayerSprite(start);
@@ -38,7 +39,7 @@ public class Player extends JPanel
         r = new Rectangle2D.Float();
         r.setFrame(x, y, w, h);
         
-        playerHitbox = new HitBox((int) (x+w/2.8), (int) (y+h/3.5), (int) (w/3.5), (int) (h/2.1));
+        playerHitbox = new HitBox((int) x, (int) y, (int) (w/3.5), (int) (h/2.1));
 
         texture = new TexturePaint(start, r);
 
@@ -48,13 +49,13 @@ public class Player extends JPanel
     {   super.paintComponent(g);
     
         Graphics2D g2 = (Graphics2D) g;
-        g2.setClip(x, y, w, h);
+        g2.setClip((int) (x-w/2.8), (int) (y-h/3.5), w, h);
 
 
         texture = new TexturePaint(b, r);
         Rectangle2D.Double r2 = new Rectangle2D.Double();
         r2.setFrame(playerHitbox.getX(), playerHitbox.getY(), playerHitbox.getWidth(), playerHitbox.getHeight());
-        r.setFrame(x, y, w, h);
+        r.setFrame((int) (x-w/2.8), (int) (y-h/3.5), w, h);
         
 
 
@@ -71,19 +72,28 @@ public class Player extends JPanel
     }
 
     public void setX(int x)
-    {   this.x = x;
+    {   this.x=x;
         
-        playerHitbox.setX((int) (x+w/2.8));
+        playerHitbox.setX(this.x);
     }
 
     public void setY(int y)
     {   this.y = y;
         
-        playerHitbox.setY((int) (y + h/3.5));
+        playerHitbox.setY(y);
     }
 
     public int getY0()
     {   return y;
+
+    }
+
+    public int getX0()
+    {   return x;
+    }
+
+    public HitBox geHitBox()
+    {   return playerHitbox;
 
     }
 
