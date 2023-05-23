@@ -37,11 +37,11 @@ public class GUI
     public GUI(Control c)
     {   ctrl = c;
         gWindow = new JFrame();
-        try {
+       try {
             player = new Player(350, 650, 150, 150, Sprite.toBuff("./out/production/GSWT-Platformer/Character1M_1_idle_0.png"));
             //r = new Rect(10, 10, 300,200, Sprite.toBuff("./Starter Tiles Platformer/DarkCastleTiles/DarkCastle_1_16x16.png"));
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+             //TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -62,10 +62,7 @@ public class GUI
         //gWindow.add(r);
         gWindow.add(player);
 
-        //img = new ImageIcon(sprite);
-        //player = new JLabel(img);
-        //player.setLocation(50, 150);
-        //p.add(player);
+
 
         gWindow.setVisible(true);
 
@@ -79,13 +76,9 @@ public class GUI
     }
 
     public void reload()
-    {   for(int i=0; i<tiles.size(); ++i)
-        {   tiles.get(i).repaint();
-
-        }
-
-
+    {   
         player.repaint();
+        tileMap.repaint();
         //r.repaint();
     
         gWindow.getContentPane().repaint();
@@ -101,24 +94,14 @@ public class GUI
     {   player.setPlayerSprite(s);
         gWindow.repaint();
     }
-
+    
     public Player getPlayer()
     {   return player;
     }
-
+    
     public void addTileMap(Map tileMap)
     {   this.tileMap = tileMap;
-        int k = 0;
-        for(int i=0; i<tileMap.getWidth(); ++i)
-        {   for(int j=0; j<tileMap.getHeight(); ++j)
-            {   if(tileMap.getTile(i, j) != null)
-                {   tiles.add(tileMap.getTile(i, j));
-                    gWindow.add(tiles.get(k));
-                    ++k;
-                }
-            }
-        }
-        System.out.println(k);
+        gWindow.add(tileMap);
     }
 
 }

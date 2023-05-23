@@ -1,3 +1,9 @@
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.TexturePaint;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,17 +14,22 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.swing.JPanel;
 
-public class Map
+
+public class Map extends JPanel
 {   private Tile tileMap[][];
     private BufferedImage tiles[];
 
-    public Map(int h, int w)
-    {   tileMap = new Tile[h][w];
+    public Map(int h, int w, Dimension d)
+    {   super();
+        super.setBounds(100, 100, 500, 500);
+
+        tileMap = new Tile[h][w];
     }
 
     public void addTile(int x, int y, BufferedImage buffImg)
-    {   tileMap[x][y] = new Tile(x*16, y*16, buffImg);
+    {   tileMap[x][y] = new Tile(x, y, buffImg);
     }
 
     public Tile getTile(int x, int y)
@@ -57,12 +68,12 @@ public class Map
         }
 
 
-        tileMap[0][0] = new Tile(0, 5, tiles[0]);
-        tileMap[1][0] = new Tile(2, 5, tiles[1]);
-        tileMap[2][0] = new Tile(3, 5, tiles[2]);
-        tileMap[3][0] = new Tile(4, 5, tiles[3]);
-        tileMap[4][0] = new Tile(5, 5, tiles[4]);
-        tileMap[5][0] = new Tile(6, 5, tiles[5]);
+        tileMap[0][0] = new Tile(0, 1, tiles[0]);
+        tileMap[1][0] = new Tile(2, 1, tiles[1]);
+        tileMap[2][0] = new Tile(3, 1, tiles[2]);
+        tileMap[3][0] = new Tile(4, 1, tiles[3]);
+        tileMap[4][0] = new Tile(5, 1, tiles[4]);
+        tileMap[5][0] = new Tile(6, 1, tiles[5]);
     }
 
 
@@ -75,5 +86,31 @@ public class Map
               .collect(Collectors.toSet());
         }
     }
-    
+
+
+    @Override
+    public void paintComponent(Graphics g)
+    {   super.paintComponent(g);
+        super.setBackground(new Color(0, 255, 0));
+        super.setSize(500, 500);
+        Graphics2D g2 = (Graphics2D) g;
+
+        g2.setClip(0, 0, 500, 500);
+
+        
+        for(int i=0; i<tileMap.length; ++i)
+        {   for(int j=0; j<tileMap[0].length; ++j)
+            {   if(tileMap[i][j] != null)
+                {   Tile nowTile = tileMap[i][j];
+                    Rectangle2D r2 = new Rectangle2D.Float(nowTile.getX()*32, nowTile.getY()*32, 32, 32);
+                    TexturePaint t = new TexturePaint(nowTile.getTexture(), r2);
+
+                    g2.setPaint(t);
+                    g2.fill(r2);
+                }
+            }
+        }
+
+        System.out.println("Paint...");
+    }
 }

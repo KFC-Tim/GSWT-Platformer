@@ -48,10 +48,14 @@ public class Player extends JPanel
     {   super.paintComponent(g);
     
         Graphics2D g2 = (Graphics2D) g;
+        g2.setClip(x, y, w, h);
+
+
         texture = new TexturePaint(b, r);
         Rectangle2D.Double r2 = new Rectangle2D.Double();
         r2.setFrame(playerHitbox.getX(), playerHitbox.getY(), playerHitbox.getWidth(), playerHitbox.getHeight());
         r.setFrame(x, y, w, h);
+        
 
 
         g2.setPaint(texture);

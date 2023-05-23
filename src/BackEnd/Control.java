@@ -62,8 +62,9 @@ public class Control
 
         Player pla = gui.getPlayer();
         player = pla;
+        //player = new Player(spriteUpdate, y0, jumps, TIMER_DELAY, Sprite.toBuff("./out/production/GSWT-Platformer/Character1M_1_idle_0.png"));
 
-        tileMap = new Map(16, 28);
+        tileMap = new Map(16, 28, gui.getGWindow().getSize());
         tileMap.loadMap();
         gui.addTileMap(tileMap);
 
