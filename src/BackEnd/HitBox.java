@@ -1,7 +1,9 @@
 import java.awt.Component;
 import java.awt.geom.Rectangle2D.Float;
+import java.util.ArrayList;
 
 public class HitBox {
+    private static ArrayList<HitBox> gameHitBoxes = new ArrayList<HitBox>();
     private int x, y, w, h;
     private Component comp;
 
@@ -62,5 +64,9 @@ public class HitBox {
         {   return true;
         }
 
+    }
+
+    public static void add(HitBox h)
+    {   gameHitBoxes.add(h);
     }
 }

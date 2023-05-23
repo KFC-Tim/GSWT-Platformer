@@ -15,7 +15,9 @@ public class Tile
     private TexturePaint texture;
     private int x,y;
 
-    public Tile(int x, int y, BufferedImage buffImg)
+    private HitBox tileHitBox;
+
+    public Tile(int x, int y, BufferedImage buffImg, boolean hitbox)
     {   this.buffImg = buffImg;
         this.x = x;
         this.y = y;
@@ -24,6 +26,14 @@ public class Tile
         r2.setFrame(x, y, 16, 16);
         
         texture = new TexturePaint(buffImg, r2);
+
+        if(hitbox)
+        {   tileHitBox = new HitBox(x*32, y*32, 32, 32);
+            HitBox.add(tileHitBox);
+        }
+        else
+        {   tileHitBox = new HitBox(0,0,0,0);
+        }
     }
 
 

@@ -77,8 +77,13 @@ public class GUI
 
     public void reload()
     {   
-        player.repaint();
+        //tileMap.add(player);
+        gWindow.remove(player);
         tileMap.repaint();
+        gWindow.add(player);
+        
+        player.repaint();
+        
         //r.repaint();
     
         gWindow.getContentPane().repaint();

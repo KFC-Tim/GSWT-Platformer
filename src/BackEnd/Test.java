@@ -30,14 +30,14 @@ public class Test
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         try {
-            t = new Tile(10, 10, Sprite.toBuff("./Starter Tiles Platformer/DarkCastleTiles/DarkCastle_1_16x16.png"));
-            t2 = new Tile(20, 20, Sprite.toBuff("./Starter Tiles Platformer/DarkCastleTiles/DarkCastle_1_16x16.png"));
+            t = new Tile(10, 10, Sprite.toBuff("./Starter Tiles Platformer/DarkCastleTiles/DarkCastle_1_16x16.png"), true);
+            t2 = new Tile(20, 20, Sprite.toBuff("./Starter Tiles Platformer/DarkCastleTiles/DarkCastle_1_16x16.png"), true);
 
 
             tileMap = new Map(16, 17, gui.getSize());
-            tileMap.addTile(0, 10, Sprite.toBuff("./Starter Tiles Platformer/DarkCastleTiles/DarkCastle_1_16x16.png"));
-            tileMap.addTile(1, 10, Sprite.toBuff("./Starter Tiles Platformer/DarkCastleTiles/DarkCastle_1_16x16.png"));
-            tileMap.addTile(2, 10, Sprite.toBuff("./Starter Tiles Platformer/DarkCastleTiles/DarkCastle_1_16x16.png"));
+            tileMap.addTile(0, 10, Sprite.toBuff("./Starter Tiles Platformer/DarkCastleTiles/DarkCastle_1_16x16.png"), true);
+            tileMap.addTile(1, 10, Sprite.toBuff("./Starter Tiles Platformer/DarkCastleTiles/DarkCastle_1_16x16.png"), true);
+            tileMap.addTile(2, 10, Sprite.toBuff("./Starter Tiles Platformer/DarkCastleTiles/DarkCastle_1_16x16.png"), true);
             tileMap.loadMap();
         } catch (IOException e) {
             // TODO Auto-generated catch block

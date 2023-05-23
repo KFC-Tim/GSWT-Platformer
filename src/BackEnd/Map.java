@@ -28,8 +28,8 @@ public class Map extends JPanel
         tileMap = new Tile[h][w];
     }
 
-    public void addTile(int x, int y, BufferedImage buffImg)
-    {   tileMap[x][y] = new Tile(x, y, buffImg);
+    public void addTile(int x, int y, BufferedImage buffImg, boolean hitbox)
+    {   tileMap[x][y] = new Tile(x, y, buffImg, hitbox);
     }
 
     public Tile getTile(int x, int y)
@@ -68,12 +68,12 @@ public class Map extends JPanel
         }
 
 
-        tileMap[0][0] = new Tile(0, 1, tiles[0]);
-        tileMap[1][0] = new Tile(2, 1, tiles[1]);
-        tileMap[2][0] = new Tile(3, 1, tiles[2]);
-        tileMap[3][0] = new Tile(4, 1, tiles[3]);
-        tileMap[4][0] = new Tile(5, 1, tiles[4]);
-        tileMap[5][0] = new Tile(6, 1, tiles[5]);
+        tileMap[0][0] = new Tile(5, 21, tiles[0], true);
+        tileMap[1][0] = new Tile(6, 21, tiles[1], true);
+        tileMap[2][0] = new Tile(7, 21, tiles[2], true);
+        tileMap[3][0] = new Tile(8, 21, tiles[3], true);
+        tileMap[4][0] = new Tile(9, 21, tiles[4], true);
+        tileMap[5][0] = new Tile(10, 21, tiles[5], true);
     }
 
 
@@ -95,7 +95,7 @@ public class Map extends JPanel
         super.setSize(500, 500);
         Graphics2D g2 = (Graphics2D) g;
 
-        g2.setClip(0, 0, 500, 500);
+        g2.setClip(0, 0, 1800, 1000);
 
         
         for(int i=0; i<tileMap.length; ++i)
