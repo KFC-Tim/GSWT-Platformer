@@ -1,3 +1,4 @@
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -19,10 +20,10 @@ public class Tile extends JPanel
         this.x = x;
         this.y = y;
 
-        setBounds(x*16, y*16, 160, 160);
+        setBounds(x*16, y*16, 16, 16);
 
         r2 = new Rectangle2D.Float();
-        r2.setFrame(x*16, y*16, 160, 160);
+        r2.setFrame(x*16, y*16, 16, 16);
         
         texture = new TexturePaint(buffImg, r2);
     }
@@ -30,13 +31,17 @@ public class Tile extends JPanel
     public void paintComponent(Graphics g)
     {   super.paintComponent(g);
 
+        AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER);
+
         Graphics2D g2 = (Graphics2D) g;
+        g2.setComposite(ac);
+        g2.setPaint(texture);
+        g2.fill(r2);
 
-        //g2.setPaint(texture);
-        //g2.fill(r2);
-
-        g2.setColor(new Color(0, 255, 0));
+        g2.setColor(new Color(255, 0, 0));
         g2.draw(r2);
+
+        g2.dispose();
     }
 
     public BufferedImage getTexture()
