@@ -1,3 +1,9 @@
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.TexturePaint;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,13 +14,18 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.swing.JPanel;
 
-public class Map
+
+public class Map extends JPanel
 {   private Tile tileMap[][];
     private BufferedImage tiles[];
 
-    public Map(int h, int w)
-    {   tileMap = new Tile[h][w];
+    public Map(int h, int w, Dimension d)
+    {   super();
+        super.setBounds(100, 100, 500, 500);
+
+        tileMap = new Tile[h][w];
     }
 
     public void addTile(int x, int y, BufferedImage buffImg)
@@ -75,5 +86,41 @@ public class Map
               .collect(Collectors.toSet());
         }
     }
-    
+
+
+    @Override
+    public void paintComponent(Graphics g)
+    {   super.paintComponent(g);
+        super.setBackground(new Color(0, 255, 0));
+        
+        Graphics2D g2 = (Graphics2D) g;
+
+        /* 
+        for(int i=0; i<tileMap.length; ++i)
+        {   for(int j=0; j<tileMap[0].length; ++j)
+            {   if(tileMap[i][j] != null)
+                {   Tile nowTile = tileMap[i][j];
+                    Rectangle2D r2 = new Rectangle2D.Float(nowTile.getX()*16, nowTile.getY()*16, 16, 16);
+                    TexturePaint t = new TexturePaint(nowTile.getTexture(), r2);
+
+                    g2.setPaint(t);
+                    g2.fill(r2);
+
+                    g2.setColor(new Color(255, 0, 0));
+                    g2.draw(r2);
+
+                    //System.out.println("Rendering.." + t.toString());
+                }
+            }
+        }
+        */
+        g2.setColor(new Color(255, 0, 0));
+        g2.drawRect(10, 10, 500, 500);
+        //System.out.println("G2 drawn...");
+    }
+
+    public Dimension getPrefferedSize()
+    {   return new Dimension(500, 500);
+
+    }
 }

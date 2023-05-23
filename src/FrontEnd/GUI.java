@@ -80,7 +80,7 @@ public class GUI
 
     public void reload()
     {   for(int i=0; i<tiles.size(); ++i)
-        {   tiles.get(i).repaint();
+        {   //tiles.get(i).repaint();
 
         }
 
@@ -113,7 +113,7 @@ public class GUI
         {   for(int j=0; j<tileMap.getHeight(); ++j)
             {   if(tileMap.getTile(i, j) != null)
                 {   tiles.add(tileMap.getTile(i, j));
-                    gWindow.add(tiles.get(k));
+                    //gWindow.add(tiles.get(k));
                     ++k;
                 }
             }

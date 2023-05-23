@@ -63,7 +63,7 @@ public class Control
         Player pla = gui.getPlayer();
         player = pla;
 
-        tileMap = new Map(16, 28);
+        tileMap = new Map(16, 28, gui.getGWindow().getSize());
         tileMap.loadMap();
         gui.addTileMap(tileMap);
 
