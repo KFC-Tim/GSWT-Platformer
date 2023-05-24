@@ -22,6 +22,8 @@ public class GUI
 
     private JPanel p;
 
+    private Backgorund backImage;
+
 
 
     //////////////////////////////
@@ -44,12 +46,18 @@ public class GUI
             e.printStackTrace();
         }
 
+        try {
+            backImage = new Backgorund(Backgorund.readImage("./Background/background2.png"));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         
     }
 
     public void gameWindow() throws IOException
     {   sprite = GUI.class.getResource("/Sprites/Male_idle.gif");
-        
         
         gWindow.setSize(1800, 1000);
         gWindow.setTitle("GSWT-Platformer");
@@ -57,6 +65,7 @@ public class GUI
         gWindow.setResizable(false);
         //gWindow.setLocation(null);
         
+        gWindow.add(backImage);
         gWindow.add(player);
 
 
@@ -74,6 +83,9 @@ public class GUI
 
     public void reload()
     {   gWindow.remove(player);
+        gWindow.remove(tileMap);
+        backImage.repaint();
+        gWindow.add(tileMap);
         tileMap.repaint();
         gWindow.add(player);
         

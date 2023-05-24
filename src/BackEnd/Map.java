@@ -91,7 +91,6 @@ public class Map extends JPanel
     @Override
     public void paintComponent(Graphics g)
     {   super.paintComponent(g);
-        super.setBackground(new Color(0, 255, 0));
         super.setSize(500, 500);
         Graphics2D g2 = (Graphics2D) g;
 

@@ -48,7 +48,7 @@ public class Control
 
     private Sprite standingSprite;
     private Sprite walkingSprite;
-    private Sprite jumpSprite;
+    private Sprite jumpSprite, fallSprite;
 
 
     public Control() throws Exception {   init();
@@ -91,6 +91,11 @@ public class Control
         {   jumpSprite.addSprite(i, Sprite.toBuff("./out/production/GSWT-Platformer/Character1M_1_jump_" + i + ".png"));
         }
 
+        fallSprite = new Sprite(2);
+        for(int i=0; i<2; ++i)
+        {   fallSprite.addSprite(i, Sprite.toBuff("./out/production/GSWT-Platformer/Character1M_1_fall_" + i + ".png"));
+        }
+
 
         ///////////////////////////
         ///////////////////////////
@@ -111,10 +116,12 @@ public class Control
 
     private void tick()
     {    ++t;
-        if(t%4 == 0)
+        if(t%3 == 0)
         {   ++spriteUpdate;
             gui.reload();
         }
+
+        
 
         //Abfrage Status:
         if(!isJumping && !isFalling)
@@ -132,19 +139,29 @@ public class Control
                                     jumping();
             }
 
-            fall = HitBox.fallsTo(player);
-            if(player.getY0()!=fall)
-            {   playerStatus = "falling";
-                isFalling = true;         
+            if(player.getX0()%32 == 0)
+            {
+                fall = HitBox.fallsTo(player);
+                if(player.getY0()!=fall)
+                {   playerStatus = "falling";
+                    isFalling = true;         
+                }
             }
         }
         else if(isJumping)
-        {   jumping();
+        {   playerSprite = jumpSprite.getSprite((spriteUpdate/2)%2);
+            jumping();
         }
         else if(isFalling)
-        {   fallTo(fall);
+        {   playerSprite = fallSprite.getSprite((spriteUpdate/2)%2);
+            fallTo(fall);
         }
         
+        if(player.getY0()>850)
+        {   fallOutMap();
+            fall = HitBox.fallsTo(player);
+            isFalling = true;
+        }
 
         gui.setPlayerSprite(playerSprite);
         gui.reload();
@@ -185,12 +202,23 @@ public class Control
         int diffY = f - posY;
 
         if(diffY>15)
-        {   player.setY(posY+15);
+        {   player.setY(posY+10 + (10/(diffY*diffY*diffY)));
         }
         else
         {   player.setY(fall);
             isFalling = false;
+            playerStatus = "standing";
         }
+
+        System.out.println(fall);
+    }
+
+    private void fallOutMap()
+    {   player.setX(player.getX0()-32);
+
+        //player.setX(0);
+        player.setY(0);
+
     }
 
 
